@@ -1,0 +1,128 @@
+#:import C kivy.utils.get_color_from_hex
+
+<Principal>:
+    Widget:
+        canvas:
+            Color:
+                rgba: [0.102, 0.102, 0.102, 1.0]
+            Rectangle:
+                size: 400, 500
+                pos: 0, 0
+    Widget:    
+        Label:
+            size: 200, 50
+            text: 'School System'
+            font_size: 20  
+            pos: 100, 445
+    Widget:
+        MyTextInput:
+            size: 250, 40
+            pos: 40, 400
+            font_size: 18
+            padding: [10, 0.5*(self.height - self.line_height)]
+            text: ''
+            hint_text: 'Search Student ID'
+            foreground_color: 1,1,1,1
+            id: id_busca
+    Widget:
+        SmoothButton:
+            size: 75, 40 
+            pos: 315, 399.3
+            text:'[b]Search[/b]'
+            back_color: [0.302, 0.302, 0.302, 1.0]
+            markup: True
+            on_release: root.buscar()
+    Widget:
+        Label: 
+            size: 75,40
+            pos: 10, 350
+            text: 'Result:'
+    Widget:
+        Label:
+            size: 120, 40
+            pos: 150, 350
+            text: ''
+            id: mensagem
+            color: (1,0,0,1)
+    Widget:
+        MyTextInput:
+            size: 320, 50
+            pos: 40, 290
+            text: ''
+            hint_text: 'Student Name'
+            foreground_color: 1,1,1,1
+            font_size: 18
+            padding: [7, 0.5*(self.height - self.line_height)]
+            id: nome_aluno
+    Widget:
+        MyTextInput:
+            size: 320, 50
+            pos: 40, 230
+            text: ''
+            hint_text: 'Course'
+            foreground_color: 1,1,1,1
+            font_size: 18
+            padding: [7, 0.5*(self.height - self.line_height)]
+            id: curso_aluno
+    Widget:
+        MyTextInput:
+            size: 320, 50
+            pos: 40, 170
+            text: ''
+            hint_text: 'Age'
+            foreground_color: 1,1,1,1
+            font_size: 18
+            padding: [7, 0.5*(self.height - self.line_height)]
+            id: idade_aluno
+    Widget:
+        SmoothButton:
+            size: 200, 40
+            pos: 100, 30
+            text: '[b]Save[/b]'
+            back_color: [0.302, 0.302, 0.302, 1.0]
+            markup: True
+            id: id_salvar
+            on_release: root.salvar()
+
+<SmoothButton@Button>:
+    background_color: (0,0,0,0)
+    background_normal: ''
+    back_color: (1,0,1,1)
+    border_radius: [20]
+    bold: True
+    canvas.before:
+        Color:
+            rgba: self.back_color
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos 
+            radius: self.border_radius
+
+<MyTextInput@TextInput>:
+    multiline: False
+    background_color: [1,1,1,0]
+    padding: [10, 0.4*(self.height - self.line_height)]
+    cursor_color: C('#ffffff')
+    canvas.after:
+        Color:
+            rgba: [1,1,1,0]
+        Ellipse:
+            angle_start:180
+            angle_end:360
+            pos:(self.pos[0] - self.size[1]/2.0, self.pos[1])
+            size: (self.size[1], self.size[1])
+        Ellipse:
+            angle_start:360
+            angle_end:540
+            pos: (self.size[0] + self.pos[0] - self.size[1]/2.0, self.pos[1])
+            size: (self.size[1], self.size[1])
+        Color:
+            rgba: C('#6e6e6e')
+        Line:
+            points: self.pos[0] , self.pos[1], self.pos[0] + self.size[0], self.pos[1]
+        Line:
+            points: self.pos[0], self.pos[1] + self.size[1], self.pos[0] + self.size[0], self.pos[1] + self.size[1]
+        Line:
+            ellipse: self.pos[0] - self.size[1]/2.0, self.pos[1], self.size[1], self.size[1], 180, 360
+        Line:
+            ellipse: self.size[0] + self.pos[0] - self.size[1]/2.0, self.pos[1], self.size[1], self.size[1], 360, 540
